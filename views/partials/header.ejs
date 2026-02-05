@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans">
+    <nav class="w-full fixed top-0 left-0 px-5 py-3 flex items-center justify-between">
+        <h3 class="text-xl">Scatch</h3>
+
+        <!-- un saaare routes m jinme aap loged in nahi ho aap login ki value false bhej do baaki saare routes m login ki value true bhejdo  -->
+        <% var loggedin = typeof loggedin !== "undefined" ? loggedin : true %>
+        <% if(loggedin) { %>
+            <div class="flex gap-5">
+            <a href="/shop">Shop</a>
+            <a href="/cart">Cart</a>
+            <a href="">My Account</a>
+            <a class="text-red-600" href="/users/logout">LogOut</a>
+            </div>
+        <% } %>
+            </nav>
+</body>
