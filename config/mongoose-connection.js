@@ -1,26 +1,17 @@
-const mongoose = require('mongoose')
-//("development:mongoose") isme apn kuch bhi likh skte hain , yeh bus name hai
-const dbgr = require("debug")("development:mongoose")
+const mongoose = require("mongoose");
+const dbgr = require("debug")("development:mongoose");
 
-const config = require('config')
+require("dotenv").config();
+
+const mongoURI = process.env.MONGODB_URI;
 
 mongoose
+  .connect(`${mongodb+srv://Somya:Somya@interview-ai-cluster.6314tk0.mongodb.net/}/scatch`)
+  .then(function () {
+    dbgr("connected");
+  })
+  .catch(function (err) {
+    dbgr(err);
+  });
 
-
-
-//pehle mongoose connect krne bolega
-//yeh waala sirf local server connect krne k liye hota hai
-.connect(`${config.get("MONGODB_URI")}/scatch`)
-
-//agr connect hogya then
-.then(function(){
-    dbgr("connected")
-})
-
-//agar connect nahi ho rha hai
-.catch(function(err){
-    dbgr(err);                                   
-})
-
-// to run the server and connection then we will export the model
-module.exports = mongoose.connection
+module.exports = mongoose.connection;
