@@ -1,58 +1,125 @@
-<%- include('./partials/header') %>
-
-    <% if(success.length>0){ %>
-        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
-            <span class="inline-block mt-1 mb-1 text-white">
-                <%= success %>
-            </span>
-        </div>
-        <% } %>
-    <div class="w-full h-screen flex items-start px-20 py-20">
-        <div class="w-[25%] flex h-screen flex-col items-start">
-            <div class="flex items-center gap-2">
-                <h3>sort by</h3>
-                <form action="/shop">
-                    <select class="border-[1px] px-2 py-1" name="sortby" id="">
-                        <option value="popular">Popular</option>
-                        <option value="newest">Newest</option>
-                    </select>
-                </form>
-            </div>
-            <div class="flex flex-col mt-20">
-                <a class="block w-fit mb-2" href="">New Collection</a>
-                <a class="block w-fit mb-2" href="">All Products</a>
-                <a class="block w-fit mb-2" href="">Discounted Products</a>
-            </div>
-            <div class="mt-32">
-                <a class="block w-fit mb-2" href="">Filter by :</a>
-                <a class="block w-fit mb-2" href="">Availability</a>
-                <a class="block w-fit mb-2" href="">Discount</a>
-            </div>
-        </div>
-        <div class="w-[75%] flex flex-col gap-5 h-screen">
-            <div class="flex items-start gap-5">
-                <% products.forEach(function(product){ %>
-                    <div class="w-60">
-                        <div class="w-full h-52 flex items-center justify-center bg-[<%= product.bgcolor %>]">
-                            <img class="h-[12rem]" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
-                                alt="">
-                        </div>
-                        <div
-                            class="flex justify-between bg-[<%= product.panelcolor %>] items-center px-4 py-4 text-[<%= product.textcolor %>]">
-                            <div>
-                                <h3>
-                                    <%= product.name %>
-                                </h3>
-                                <h4>₹ <%= product.price %>
-                                </h4>
-                            </div>
-                            <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="/addtocart/<%= product._id %>">
-                                <i class="ri-add-line"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <% }) %>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCATCH - Maison &amp; Atelier Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { espresso: { DEFAULT: '#241b16', muted: '#63534b', light: '#8c786e' } },
+                    fontFamily: { serif: ['Cormorant Garamond', 'Georgia', 'serif'], sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        };
+    </script>
+    <style>
+        @keyframes drift-one { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(70px, -45px) scale(1.12); } }
+        @keyframes drift-two { 0%, 100% { transform: translate(0, 0) scale(1.08); } 50% { transform: translate(-60px, 50px) scale(.92); } }
+        .orb-one { animation: drift-one 22s ease-in-out infinite alternate; }
+        .orb-two { animation: drift-two 28s ease-in-out infinite alternate; }
+        .glass-card { background: rgba(255, 254, 252, .82); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, .95); box-shadow: 0 18px 40px -15px rgba(85, 60, 44, .1), 0 4px 10px -2px rgba(85, 60, 44, .03); }
+        .card-footer-sand { background: linear-gradient(145deg, rgba(229, 203, 184, .92), rgba(216, 187, 166, .96)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4); }
+        @media (prefers-reduced-motion: reduce) { .orb-one, .orb-two { animation: none; } }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden bg-[#fcfaf7] font-sans text-espresso antialiased">
+    <div aria-hidden="true" class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div class="orb-one absolute -top-36 left-1/4 h-[600px] w-[600px] rounded-full bg-[#f4e0cc]/45 blur-[120px]"></div>
+        <div class="orb-two absolute top-1/3 -right-36 h-[680px] w-[680px] rounded-full bg-[#eedac5]/50 blur-[140px]"></div>
+        <div class="absolute -bottom-40 left-10 h-[720px] w-[720px] rounded-full bg-[#e8cbb1]/40 blur-[130px]"></div>
+        <div class="absolute inset-0 opacity-15 [background-image:radial-gradient(#d3baa4_0.75px,transparent_0.75px)] [background-size:28px_28px]"></div>
     </div>
-    <%- include('./partials/footer') %>
+
+    <header class="sticky top-0 z-40 border-b border-[#ebdccd]/70 bg-[#fcfaf7]/85 backdrop-blur-md">
+        <div class="mx-auto flex h-24 max-w-[1720px] items-center justify-between px-6 sm:px-10 lg:px-14">
+            <div class="w-1/4"></div>
+            <a href="/shop" class="flex flex-col items-center justify-center text-center no-underline">
+                <div class="flex items-center gap-2">
+                    <span class="flex h-6 w-6 items-center justify-center rounded-md border border-[#c7a98e]/70 bg-gradient-to-br from-[#f8f0e5] to-[#ebdcce] font-serif text-lg">+</span>
+                    <h1 class="font-serif text-3xl font-medium uppercase tracking-[.14em] sm:text-4xl">Scatch</h1>
+                </div>
+                <span class="mt-0.5 text-[9px] font-medium uppercase tracking-[.35em] text-espresso-light">Haute Maroquinerie</span>
+            </a>
+            <nav aria-label="Primary Navigation" class="flex w-1/4 items-center justify-end gap-4 sm:gap-8">
+                <a class="text-xs font-semibold uppercase tracking-[.2em] text-espresso" href="/shop">Shop</a>
+                <a class="text-xs uppercase tracking-[.2em] text-espresso-muted transition hover:text-espresso" href="/cart">Cart</a>
+                <a class="hidden text-xs uppercase tracking-[.2em] text-espresso-muted transition hover:text-espresso md:inline-block" href="/cart">My Account</a>
+                <a class="text-xs font-medium uppercase tracking-[.2em] text-[#a75c43] transition hover:text-[#883d26]" href="/users/logout">LogOut</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-[1720px] px-6 py-8 sm:px-10 lg:px-14 lg:py-12">
+        <% if(success.length > 0){ %>
+            <div class="mb-6 rounded-lg border border-[#d5b49a] bg-[#f1ddca] px-4 py-3 text-sm text-espresso" role="status"><%= success %></div>
+        <% } %>
+
+        <section class="mb-8 flex justify-end border-b border-[#ebdccd]/60 pb-8">
+            <form action="/shop" method="get" class="flex items-center gap-3">
+                <label class="text-xs font-medium uppercase tracking-[.16em] text-espresso-muted" for="sort-select">Sort by</label>
+                <select id="sort-select" name="sortby" class="min-w-[160px] rounded-full border border-[#ddcbba] bg-white/80 py-2 pl-4 pr-9 text-xs font-medium tracking-wider text-espresso focus:border-espresso focus:outline-none focus:ring-1 focus:ring-espresso">
+                    <option value="popular">Popular</option>
+                    <option value="newest">Newest Additions</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </form>
+        </section>
+
+        <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
+            <aside aria-label="Catalog Filtering and Categories" class="space-y-10 lg:col-span-3 xl:col-span-2">
+                <nav aria-label="Product Categories">
+                    <ul class="space-y-3 text-sm tracking-wide">
+                        <li><a class="block py-0.5 text-espresso-muted transition hover:translate-x-1 hover:text-espresso" href="/shop">New Collection</a></li>
+                        <li><a class="flex items-center justify-between py-0.5 font-semibold text-espresso" href="/shop"><span class="border-b border-espresso pb-0.5">All Products</span><span class="h-1.5 w-1.5 rounded-full bg-[#c99573]"></span></a></li>
+                        <li><a class="block py-0.5 text-espresso-muted transition hover:translate-x-1 hover:text-espresso" href="/shop?discounted=true">Discounted Products</a></li>
+                    </ul>
+                </nav>
+                <div class="h-px w-14 bg-[#ebdccd]"></div>
+                <div class="space-y-4">
+                    <h2 class="text-xs font-semibold uppercase tracking-[.24em]">Filter by:</h2>
+                    <div class="space-y-2.5 pt-1 text-sm text-espresso-muted">
+                        <button class="flex w-full items-center justify-between py-1 text-left transition hover:text-espresso" type="button">Availability <span>⌄</span></button>
+                        <button class="flex w-full items-center justify-between py-1 text-left transition hover:text-espresso" type="button">Discount <span>⌄</span></button>
+                    </div>
+                </div>
+            </aside>
+
+            <section aria-label="Product Showcase" class="lg:col-span-9 xl:col-span-10">
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:gap-8 xl:grid-cols-4">
+                    <% products.forEach(function(product){ %>
+                        <article class="glass-card group flex flex-col justify-between overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1.5">
+                            <div class="product-image relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-[#f5ede5]/50 p-6" data-bgcolor="<%= product.bgcolor || '#f5ede5' %>">
+                                <img alt="<%= product.name %>" class="h-full w-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-105" loading="lazy" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>">
+                                <% if(product.discount > 0){ %><span class="absolute left-3.5 top-3.5 rounded-full border border-white/60 bg-white/70 px-2 py-0.5 text-[10px] font-medium uppercase tracking-widest text-espresso-muted backdrop-blur-sm">Sale</span><% } %>
+                            </div>
+                            <div class="product-footer card-footer-sand flex items-end justify-between p-4 sm:p-5" data-panelcolor="<%= product.panelcolor || '' %>" data-textcolor="<%= product.textcolor || '#241b16' %>">
+                                <div class="min-w-0 space-y-1 pr-2">
+                                    <h3 class="truncate text-sm font-medium leading-snug"><%= product.name %></h3>
+                                    <p class="font-serif text-lg font-semibold">₹ <%= product.price %></p>
+                                </div>
+                                <a aria-label="Add <%= product.name %> to bag" class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-white/90 text-xl shadow-sm transition hover:scale-110 hover:bg-white active:scale-95" href="/addtocart/<%= product._id %>">+</a>
+                            </div>
+                        </article>
+                    <% }) %>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script>
+        document.querySelectorAll('.product-image').forEach(function (image) {
+            image.style.backgroundColor = image.dataset.bgcolor;
+        });
+        document.querySelectorAll('.product-footer').forEach(function (footer) {
+            if (footer.dataset.panelcolor) footer.style.background = footer.dataset.panelcolor;
+            footer.style.color = footer.dataset.textcolor;
+        });
+    </script>
+</body>
+</html>

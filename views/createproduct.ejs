@@ -1,55 +1,479 @@
-<%- include('./partials/header') %>
+<!DOCTYPE html>
+<% const currentProduct = typeof product !== 'undefined' ? product : null; %>
+<html lang="en">
 
-    <% if(success.length>0){ %>
-        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
-            <span class="inline-block mt-1 mb-1 text-white">
-                <%= success %>
-            </span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Scatch - <%= currentProduct ? 'Edit Product' : 'Create New Product' %>
+    </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: [
+                            'Cormorant Garamond',
+                            'Georgia',
+                            'serif'
+                        ],
+                        brand: [
+                            'Cinzel',
+                            'serif'
+                        ],
+                        sans: [
+                            'Plus Jakarta Sans',
+                            'system-ui',
+                            'sans-serif'
+                        ]
+                    }
+                }
+            }
+        };
+    </script>
+
+    <style>
+        @keyframes float-orb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+                opacity: .45;
+            }
+
+            50% {
+                transform: translate(35px, 20px) scale(1.08);
+                opacity: .65;
+            }
+        }
+
+        .ambient-orb {
+            animation: float-orb 16s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ambient-orb {
+                animation: none;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body
+    class="relative min-h-screen overflow-x-hidden bg-[#FAF8F5] font-sans text-[#221C19] antialiased"
+>
+
+    <!-- Background -->
+    <div
+        aria-hidden="true"
+        class="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+    >
+
+        <div
+            class="ambient-orb absolute -left-20 -top-40 h-[650px] w-[650px] rounded-full bg-gradient-to-br from-[#F5E8D8]/60 via-[#EFE5D6]/30 to-transparent blur-3xl"
+        ></div>
+
+        <div
+            class="absolute right-0 top-1/4 h-[550px] w-[550px] rounded-full bg-gradient-to-bl from-[#EFE8DE]/50 via-[#EAE1D2]/35 to-transparent blur-3xl"
+        ></div>
+
+    </div>
+
+
+    <!-- Header -->
+    <header
+        class="relative z-10 w-full border-b border-[#EAE3D9]/70 bg-[#FAF8F5]/80 backdrop-blur-sm"
+    >
+
+        <div
+            class="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 sm:px-8"
+        >
+
+            <div class="hidden w-1/3 md:block"></div>
+
+
+            <!-- Logo -->
+            <a
+                href="/shop"
+                class="flex flex-col items-center justify-center text-center"
+            >
+
+                <div
+                    class="mb-2.5 flex h-10 w-10 items-center justify-center rounded-2xl border border-[#E8E1D5] bg-gradient-to-b from-[#FFFDF9] to-[#F1ECE3] font-serif text-2xl text-[#8C7A68] shadow-sm"
+                >
+                    +
+                </div>
+
+                <div class="flex items-center gap-4">
+
+                    <span class="h-px w-8 bg-[#D8CFC2]"></span>
+
+                    <h1
+                        class="font-serif text-[17px] uppercase tracking-[.38em]"
+                    >
+                        SCATCH
+                    </h1>
+
+                    <span class="h-px w-8 bg-[#D8CFC2]"></span>
+
+                </div>
+
+                <span
+                    class="mt-1 text-[9px] font-medium uppercase tracking-[.3em] text-[#9E948A]"
+                >
+                    Maison &amp; Atelier
+                </span>
+
+            </a>
+
+
+            <!-- Navigation -->
+            <nav
+                aria-label="Global Navigation"
+                class="flex w-1/3 items-center justify-end gap-4 text-xs tracking-wide text-[#575049] sm:gap-7 sm:text-[13px]"
+            >
+
+                <a
+                    href="/shop"
+                    class="transition hover:text-[#1C1917]"
+                >
+                    Shop
+                </a>
+
+                <a
+                    href="/cart"
+                    class="transition hover:text-[#1C1917]"
+                >
+                    Cart
+                </a>
+
+                <a
+                    href="/cart"
+                    class="hidden transition hover:text-[#1C1917] sm:inline"
+                >
+                    My Account
+                </a>
+
+                <a
+                    href="/users/logout"
+                    class="font-medium text-[#9E4A43] transition hover:text-[#7A3630]"
+                >
+                    LogOut
+                </a>
+
+            </nav>
+
         </div>
+
+    </header>
+
+
+    <!-- Main -->
+    <main
+        class="relative z-10 mx-auto max-w-[1440px] px-6 py-10 sm:px-8 lg:py-12"
+    >
+
+        <!-- Success Message -->
+        <% if (typeof success !== 'undefined' && success && success.length > 0) { %>
+
+            <div
+                class="mb-6 rounded-lg border border-[#dfcdb8] bg-[#f3e7d9] px-4 py-3 text-sm text-[#2B2622]"
+                role="status"
+            >
+                <%= success %>
+            </div>
+
         <% } %>
 
-            <div class="min-h-screen flex flex-col">
-                <div class="container px-10 py-20 flex flex-grow">
-                    <div class="w-[25%] flex h-screen flex-col items-start">
-                        <div class="flex flex-col">
-                            <a class="block w-fit mb-2" href="">All Products</a>
-                            <a class="block w-fit mb-2" href="">Create new product</a>
-                        </div>
+
+        <div
+            class="grid grid-cols-12 items-start gap-8 lg:gap-10"
+        >
+
+            <!-- Sidebar -->
+            <aside
+                aria-label="Catalog Administration"
+                class="col-span-12 pt-2 md:col-span-3 lg:col-span-2"
+            >
+
+                <nav class="flex flex-col space-y-3.5 text-sm">
+
+                    <a
+                        class="rounded-md px-2 py-1 text-[#786E64] transition hover:bg-[#F3EDE3]/50 hover:text-[#1C1917]"
+                        href="/owners/admin/products"
+                    >
+                        All Products
+                    </a>
+
+                    <a
+                        class="flex items-center justify-between rounded-lg border border-[#E2DAD0] bg-[#EFE9DF]/80 px-2.5 py-1 font-medium text-[#1C1917] shadow-sm"
+                        href="/owners/admin"
+                    >
+
+                        <span>
+                            Create new product
+                        </span>
+
+                        <span
+                            class="h-1.5 w-1.5 rounded-full bg-[#BFA07A]"
+                        ></span>
+
+                    </a>
+
+                </nav>
+
+            </aside>
+
+
+            <!-- Form Section -->
+            <section
+                class="col-span-12 md:col-span-9 lg:col-span-10"
+            >
+
+                <div
+                    class="rounded-2xl border border-[#EDE7DD] bg-white/95 p-7 shadow-[0_12px_40px_rgba(28,25,23,0.03)] sm:p-9 lg:p-12"
+                >
+
+                    <!-- Heading -->
+                    <div
+                        class="mb-8 border-b border-[#F2ECE3] pb-5"
+                    >
+
+                        <h2
+                            class="font-serif text-[28px] font-normal tracking-tight text-[#1C1917] lg:text-[30px]"
+                        >
+                            <%= currentProduct ? 'Edit Product' : 'Create New Product' %>
+                        </h2>
+
                     </div>
-                    <main class="w-3/4 bg-white p-8 shadow ml-4">
-                        <h2 class="text-xl font-bold mb-4">Create New Product</h2>
-                        <form autocomplete="off" action="/products/create" method="post" enctype="multipart/form-data">
-                            <div class="mb-6">
-                                <h3 class="text-lg font-semibold mb-2">Product Details</h3>
-                                <div class="mb-4">
-                                    <label class="block mb-2 font-medium">Product Image</label>
-                                    <input name="image" type="file" class="py-2 px-4 rounded" value="Select File">
+
+
+                    <!-- Product Form -->
+                    <form
+                        autocomplete="off"
+                        action="<%= currentProduct ? '/owners/admin/edit/' + currentProduct._id : '/products/create' %>"
+                        method="post"
+                        enctype="multipart/form-data"
+                        class="space-y-8"
+                    >
+
+
+                        <!-- Product Details -->
+                        <div class="space-y-4">
+
+                            <h3
+                                class="text-[15px] font-medium text-[#2B2622]"
+                            >
+                                Product Details
+                            </h3>
+
+
+                            <!-- Image -->
+                            <div class="space-y-2 pt-1">
+
+                                <label
+                                    class="block text-[13.5px] text-[#5A524A]"
+                                    for="product-image-file"
+                                >
+                                    Product Image
+                                </label>
+
+
+                                <div
+                                    class="flex flex-wrap items-center gap-3.5"
+                                >
+
+                                    <label
+                                        class="cursor-pointer rounded-md border border-[#DDD6CB] bg-[#FBF9F5] px-4 py-2 text-[13px] font-medium text-[#2E2823] shadow-sm transition hover:border-[#CCC3B5] hover:bg-[#F3EFEA]"
+                                        for="product-image-file"
+                                    >
+                                        Choose file
+                                    </label>
+
+
+                                    <input
+                                        <%= currentProduct ? '' : 'required' %>
+                                        accept="image/*"
+                                        class="hidden"
+                                        id="product-image-file"
+                                        name="image"
+                                        type="file"
+                                    >
+
+
+                                    <span
+                                        class="text-[13px] text-[#91867C]"
+                                        id="file-chosen-label"
+                                    >
+                                        <%= currentProduct
+                                            ? 'Choose a new image to replace the current one'
+                                            : 'No file chosen'
+                                        %>
+                                    </span>
+
                                 </div>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <input name="name" type="text" placeholder="Product Name"
-                                        class="border p-2 rounded w-full">
-                                    <input name="price" type="text" placeholder="Product Price"
-                                        class="border p-2 rounded w-full">
-                                    <input name="discount" type="text" placeholder="Discount Price"
-                                        class="border p-2 rounded w-full">
-                                </div>
+
                             </div>
 
-                            <div>
-                                <h3 class="text-lg font-semibold mb-2">Panel Details</h3>
-                                <div class="grid grid-cols-2 gap-4">
-                                    <input name="bgcolor" type="text" placeholder="Background Color"
-                                        class="border p-2 rounded w-full">
-                                    <input name="panelcolor" type="text" placeholder="Panel Color"
-                                        class="border p-2 rounded w-full">
-                                    <input name="textcolor" type="text" placeholder="Text Color"
-                                        class="border p-2 rounded w-full">
-                                </div>
+
+                            <!-- Name and Price -->
+                            <div
+                                class="grid grid-cols-1 gap-4 pt-2 md:grid-cols-2"
+                            >
+
+                                <input
+                                    required
+                                    name="name"
+                                    type="text"
+                                    value="<%= currentProduct ? currentProduct.name : '' %>"
+                                    placeholder="Product Name"
+                                    class="w-full rounded-md border border-[#E4DCD2] bg-[#FAF8F5] px-4 py-2.5 text-sm focus:border-[#BFA07A] focus:bg-white focus:outline-none"
+                                >
+
+
+                                <input
+                                    required
+                                    name="price"
+                                    type="number"
+                                    min="0"
+                                    value="<%= currentProduct ? currentProduct.price : '' %>"
+                                    placeholder="Product Price"
+                                    class="w-full rounded-md border border-[#E4DCD2] bg-[#FAF8F5] px-4 py-2.5 text-sm focus:border-[#BFA07A] focus:bg-white focus:outline-none"
+                                >
+
                             </div>
-                            <input class="px-5 py-2 rounded mt-3 bg-blue-500 text-white" type="submit"
-                                value="Create New Product">
-                        </form>
-                    </main>
+
+
+                            <!-- Discount -->
+                            <input
+                                name="discount"
+                                type="number"
+                                min="0"
+                                value="<%= currentProduct ? currentProduct.discount : 0 %>"
+                                placeholder="Discount Price"
+                                class="w-full rounded-md border border-[#E4DCD2] bg-[#FAF8F5] px-4 py-2.5 text-sm focus:border-[#BFA07A] focus:bg-white focus:outline-none md:w-1/2"
+                            >
+
+                        </div>
+
+
+                        <!-- Panel Details -->
+                        <div
+                            class="space-y-4 border-t border-[#F2ECE3] pt-8"
+                        >
+
+                            <h3
+                                class="text-[15px] font-medium text-[#2B2622]"
+                            >
+                                Panel Details
+                            </h3>
+
+
+                            <div
+                                class="grid grid-cols-1 gap-4 pt-1 md:grid-cols-2"
+                            >
+
+                                <!-- Background Color -->
+                                <input
+                                    required
+                                    name="bgcolor"
+                                    type="text"
+                                    value="<%= currentProduct ? currentProduct.bgcolor : '#f5ede5' %>"
+                                    placeholder="Background Color"
+                                    class="w-full rounded-md border border-[#E4DCD2] bg-[#FAF8F5] px-4 py-2.5 text-sm focus:border-[#BFA07A] focus:bg-white focus:outline-none"
+                                >
+
+
+                                <!-- Panel Color -->
+                                <input
+                                    required
+                                    name="panelcolor"
+                                    type="text"
+                                    value="<%= currentProduct ? currentProduct.panelcolor : '#ecd6be' %>"
+                                    placeholder="Panel Color"
+                                    class="w-full rounded-md border border-[#E4DCD2] bg-[#FAF8F5] px-4 py-2.5 text-sm focus:border-[#BFA07A] focus:bg-white focus:outline-none"
+                                >
+
+                            </div>
+
+
+                            <!-- Text Color -->
+                            <input
+                                required
+                                name="textcolor"
+                                type="text"
+                                value="<%= currentProduct ? currentProduct.textcolor : '#241b16' %>"
+                                placeholder="Text Color"
+                                class="w-full rounded-md border border-[#E4DCD2] bg-[#FAF8F5] px-4 py-2.5 text-sm focus:border-[#BFA07A] focus:bg-white focus:outline-none md:w-1/2"
+                            >
+
+                        </div>
+
+
+                        <!-- Submit -->
+                        <button
+                            class="rounded-lg bg-[#221C19] px-6 py-3 text-[13.5px] font-medium tracking-wide text-[#FAF8F5] shadow-[0_4px_16px_rgba(34,28,25,0.18)] transition hover:bg-[#322A26] focus:outline-none focus:ring-2 focus:ring-[#BFA07A]"
+                            type="submit"
+                        >
+                            <%= currentProduct ? 'Save Changes' : 'Create New Product' %>
+                        </button>
+
+                    </form>
+
                 </div>
-            </div>
-            <%- include('./partials/footer') %>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer
+        class="relative z-10 mx-auto max-w-[1440px] px-8 py-8 text-center text-[11px] uppercase tracking-widest text-[#A89E93]"
+    >
+        Scatch Atelier Management Suite - Atelier Curations
+    </footer>
+
+
+    <!-- File Name Script -->
+    <script>
+
+        const imageInput = document.getElementById('product-image-file');
+        const fileLabel = document.getElementById('file-chosen-label');
+
+        if (imageInput && fileLabel) {
+
+            imageInput.addEventListener('change', function () {
+
+                if (this.files && this.files.length > 0) {
+                    fileLabel.textContent = this.files[0].name;
+                } else {
+                    fileLabel.textContent = 'No file chosen';
+                }
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

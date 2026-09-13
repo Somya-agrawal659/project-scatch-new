@@ -1,113 +1,270 @@
-<%- include('./partials/header') %>
-    <div class="w-full h-screen flex items-start px-20 py-20">
-        <div class="w-[25%] flex h-screen flex-col items-start">
-            <div class="flex flex-col">
-                <a class="block w-fit mb-2" href="">All Products</a>
-                <a class="block w-fit mb-2" href="">Create new product</a>
-            </div>
-        </div>
-        <div class="w-[75%] flex flex-col gap-5 h-screen">
-            <a class="text-red-500" href="">Delete all</a>
-            <div class="flex items-start gap-5">
-                <div class="w-60 bg-red-500">
-                    <div class="w-full h-52 bg-yellow-500"></div>
-                    <div class="flex justify-between items-center px-4 py-4">
-                        <div>
-                            <h3>Clinge Bag</h3>
-                            <h4>₹ 1200</h4>
-                        </div>
-                        <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="">
-                            <i class="ri-add-line"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="w-60 bg-red-500">
-                    <div class="w-full h-52 bg-yellow-500"></div>
-                    <div class="flex justify-between items-center px-4 py-4">
-                        <div>
-                            <h3>Clinge Bag</h3>
-                            <h4>₹ 1200</h4>
-                        </div>
-                        <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="">
-                            <i class="ri-add-line"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="w-60 bg-red-500">
-                    <div class="w-full h-52 bg-yellow-500"></div>
-                    <div class="flex justify-between items-center px-4 py-4">
-                        <div>
-                            <h3>Clinge Bag</h3>
-                            <h4>₹ 1200</h4>
-                        </div>
-                        <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="">
-                            <i class="ri-add-line"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="w-60 bg-red-500">
-                    <div class="w-full h-52 bg-yellow-500"></div>
-                    <div class="flex justify-between items-center px-4 py-4">
-                        <div>
-                            <h3>Clinge Bag</h3>
-                            <h4>₹ 1200</h4>
-                        </div>
-                        <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="">
-                            <i class="ri-add-line"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-start gap-5">
-                <div class="w-60 bg-red-500">
-                    <div class="w-full h-52 bg-yellow-500"></div>
-                    <div class="flex justify-between items-center px-4 py-4">
-                        <div>
-                            <h3>Clinge Bag</h3>
-                            <h4>₹ 1200</h4>
-                        </div>
-                        <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="">
-                            <i class="ri-add-line"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="w-60 bg-red-500">
-                    <div class="w-full h-52 bg-yellow-500"></div>
-                    <div class="flex justify-between items-center px-4 py-4">
-                        <div>
-                            <h3>Clinge Bag</h3>
-                            <h4>₹ 1200</h4>
-                        </div>
-                        <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="">
-                            <i class="ri-add-line"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="w-60 bg-red-500">
-                    <div class="w-full h-52 bg-yellow-500"></div>
-                    <div class="flex justify-between items-center px-4 py-4">
-                        <div>
-                            <h3>Clinge Bag</h3>
-                            <h4>₹ 1200</h4>
-                        </div>
-                        <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="">
-                            <i class="ri-add-line"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="w-60 bg-red-500">
-                    <div class="w-full h-52 bg-yellow-500"></div>
-                    <div class="flex justify-between items-center px-4 py-4">
-                        <div>
-                            <h3>Clinge Bag</h3>
-                            <h4>₹ 1200</h4>
-                        </div>
-                        <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="">
-                            <i class="ri-add-line"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scatch - Product Management</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @keyframes float-orb {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 20px); }
+        }
+
+        .ambient-orb {
+            animation: float-orb 18s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .ambient-orb {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="relative min-h-screen overflow-x-hidden bg-[#FAF8F5] font-sans text-[#221C19] antialiased"
+>
+
+    <!-- Background -->
+    <div
+        aria-hidden="true"
+        class="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+    >
+        <div
+            class="ambient-orb absolute -left-20 -top-40 h-[600px] w-[600px] rounded-full bg-[#F5E8D8]/60 blur-3xl"
+        ></div>
+
+        <div
+            class="absolute right-0 top-1/3 h-[500px] w-[500px] rounded-full bg-[#EFE8DE]/50 blur-3xl"
+        ></div>
     </div>
-    <%- include('./partials/footer') %>
+
+
+    <!-- Header -->
+    <header
+        class="border-b border-[#EAE3D9]/70 bg-[#FAF8F5]/80 px-6 py-5 backdrop-blur-sm sm:px-8"
+    >
+        <div
+            class="mx-auto flex max-w-[1440px] items-center justify-between"
+        >
+
+            <!-- Logo -->
+            <a
+                href="/shop"
+                class="font-serif text-xl tracking-[.3em]"
+            >
+                SCATCH
+            </a>
+
+            <!-- Navigation -->
+            <nav
+                class="flex items-center gap-4 text-xs text-[#575049] sm:gap-7 sm:text-sm"
+            >
+                <a
+                    href="/shop"
+                    class="hover:text-[#1C1917]"
+                >
+                    Shop
+                </a>
+
+                <a
+                    href="/owners/admin"
+                    class="hover:text-[#1C1917]"
+                >
+                    Create Product
+                </a>
+
+                <a
+                    href="/users/logout"
+                    class="font-medium text-[#9E4A43]"
+                >
+                    LogOut
+                </a>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- Main -->
+    <main
+        class="relative z-10 mx-auto max-w-[1440px] px-6 py-10 sm:px-8 lg:py-12"
+    >
+
+        <!-- Page Header -->
+        <div
+            class="mb-8 flex flex-col justify-between gap-4 border-b border-[#EDE7DD] pb-6 sm:flex-row sm:items-end"
+        >
+
+            <div>
+                <p
+                    class="mb-2 text-xs font-medium uppercase tracking-[.24em] text-[#9E948A]"
+                >
+                    Atelier Management
+                </p>
+
+                <h1
+                    class="font-serif text-4xl text-[#1C1917]"
+                >
+                    All Products
+                </h1>
+            </div>
+
+            <a
+                href="/owners/admin"
+                class="w-fit rounded-lg bg-[#221C19] px-5 py-3 text-sm text-[#FAF8F5] transition hover:bg-[#322A26]"
+            >
+                + Create New Product
+            </a>
+
+        </div>
+
+
+        <!-- Check Products -->
+        <% if (products.length === 0) { %>
+
+            <!-- No Products -->
+            <div
+                class="rounded-2xl border border-[#EDE7DD] bg-white/90 p-12 text-center shadow-sm"
+            >
+
+                <h2 class="font-serif text-2xl">
+                    No products yet
+                </h2>
+
+                <a
+                    href="/owners/admin"
+                    class="mt-5 inline-block text-sm text-[#8C6A45] underline"
+                >
+                    Add your first product
+                </a>
+
+            </div>
+
+
+        <% } else { %>
+
+
+            <!-- Products Grid -->
+            <div
+                class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            >
+
+                <% products.forEach(function(product) { %>
+
+                    <!-- Product Card -->
+                    <article
+                        class="overflow-hidden rounded-2xl border border-[#EDE7DD] bg-white/90 shadow-[0_12px_30px_rgba(28,25,23,0.05)]"
+                    >
+
+                        <!-- Product Image -->
+                        <div
+                            class="product-image flex aspect-[4/3] items-center justify-center p-6"
+                            data-bgcolor="<%= product.bgcolor || '#f5ede5' %>"
+                        >
+
+                            <img
+                                class="max-h-full max-w-full object-contain mix-blend-multiply"
+                                src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
+                                alt="<%= product.name %>"
+                            >
+
+                        </div>
+
+
+                        <!-- Product Information -->
+                        <div class="p-5">
+
+                            <div
+                                class="flex items-start justify-between gap-3"
+                            >
+
+                                <div>
+
+                                    <!-- Product Name -->
+                                    <h2 class="font-medium">
+                                        <%= product.name %>
+                                    </h2>
+
+                                    <!-- Product Price -->
+                                    <p class="mt-1 font-serif text-xl">
+                                        ₹<%= product.price %>
+                                    </p>
+
+                                </div>
+
+
+                                <!-- Product ID -->
+                                <span
+                                    class="rounded-full bg-[#F3EDE3] px-2 py-1 text-[10px] uppercase tracking-wider text-[#786E64]"
+                                >
+                                    ID <%= product._id.toString().slice(-5) %>
+                                </span>
+
+                            </div>
+
+
+                            <!-- Buttons -->
+                            <div class="mt-5 flex items-center gap-2">
+
+                                <!-- Edit -->
+                                <a
+                                    href="/owners/admin/edit/<%= product._id %>"
+                                    class="flex-1 rounded-md border border-[#D8CFC2] px-3 py-2 text-center text-xs font-medium transition hover:bg-[#F3EDE3]"
+                                >
+                                    Edit
+                                </a>
+
+
+                                <!-- Delete -->
+                                <form
+                                    class="flex-1"
+                                    action="/owners/admin/delete/<%= product._id %>"
+                                    method="post"
+                                    onsubmit="return confirm('Delete this product permanently?')"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="w-full rounded-md border border-[#E2B9AF] px-3 py-2 text-xs font-medium text-[#9E4A43] transition hover:bg-[#F9E9E5]"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                <% }) %>
+
+            </div>
+
+
+        <% } %>
+
+    </main>
+    <script>
+        document.querySelectorAll('.product-image').forEach(function (image) {
+            image.style.backgroundColor = image.dataset.bgcolor;
+        });
+    </script>
+
+</body>
+
+</html>
