@@ -6,7 +6,7 @@ require("dotenv").config();
 const mongoURI = process.env.MONGODB_URI;
 
 mongoose
-  .connect(`${mongodb+srv://Somya:Somya@interview-ai-cluster.6314tk0.mongodb.net/}/scatch`)
+  .connect(`${MONGODB_URI}/scatch`)
   .then(function () {
     dbgr("connected");
   })
