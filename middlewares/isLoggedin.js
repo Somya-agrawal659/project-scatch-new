@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user-model");
+const db = require("../config/mongoose-connection");
 
 module.exports = async function (req, res, next) {
   //agar user joh access kr rha hai page uske token nahi then we will redirect it to the login page
@@ -10,6 +11,7 @@ module.exports = async function (req, res, next) {
   }
 
   try {
+    await db.asPromise();
     let decoded = jwt.verify(req.cookies.token, process.env.JWT_KEY);
     let user = await userModel
       //user ka account ka data find kiya and usme se password ka data hata diya

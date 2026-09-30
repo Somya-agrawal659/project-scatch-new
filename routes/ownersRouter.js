@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const upload = require("../config/multer-config");
 const productModel = require("../models/product-model");
+const db = require("../config/mongoose-connection");
 
 //now we will require from models to route
 const ownerModel = require("../models/owner-model");
@@ -42,11 +43,13 @@ router.get("/admin",function(req,res){
 })
 
 router.get("/admin/products", async function(req, res) {
+  await db.asPromise();
   const products = await productModel.find().sort({ _id: -1 });
   res.render("admin", { products });
 });
 
 router.get("/admin/edit/:id", async function(req, res) {
+  await db.asPromise();
   const product = await productModel.findById(req.params.id);
   if (!product) return res.status(404).send("Product not found");
 

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const db = require("../config/mongoose-connection");
 const isLoggedin = require("../middlewares/isLoggedin")
 const productModel = require("../models/product-model");
 const userModel = require("../models/user-model")
@@ -10,6 +11,7 @@ router.get('/',function(req,res){
 })
 
 router.get('/shop',isLoggedin,async function(req,res){
+    await db.asPromise();
     const discountedOnly = req.query.discounted === "true";
     const availability = req.query.availability === "available" ? "available" : "all";
     const collection = req.query.collection === "new" ? "new" : "all";
@@ -31,6 +33,7 @@ router.get('/shop',isLoggedin,async function(req,res){
 })
 
 router.get('/cart',isLoggedin,async function(req,res){
+    await db.asPromise();
     let user = await userModel
     .findOne({email:req.user.email})
     .populate("cart")
@@ -38,16 +41,19 @@ router.get('/cart',isLoggedin,async function(req,res){
 })
 
 router.get('/account', isLoggedin, async function(req, res) {
+    await db.asPromise();
     const user = await userModel.findById(req.user._id).select("-password");
     res.render("account", { user });
 });
 
 router.get('/orders', isLoggedin, async function(req, res) {
+    await db.asPromise();
     const user = await userModel.findById(req.user._id).select("orders");
     res.render("orders", { orders: user.orders || [] });
 });
 
 router.post('/orders/place', isLoggedin, async function(req, res) {
+    await db.asPromise();
     const user = await userModel.findById(req.user._id).populate("cart");
     if (!user || user.cart.length === 0) return res.redirect("/orders");
 

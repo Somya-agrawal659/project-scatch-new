@@ -10,5 +10,8 @@ router.get("/", function (req, res) {
 router.post("/register", registerUser );
 router.post("/login", loginUser );
 router.get("/logout", logout );
+router.get("/login", function (req, res) {
+  res.redirect("/");
+});
 
 module.exports = router;

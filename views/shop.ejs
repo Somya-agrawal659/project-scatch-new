@@ -105,7 +105,7 @@
                         <% const salePrice = Math.max(0, Number(product.price || 0) - Number(product.discount || 0)); %>
                         <article class="glass-card group flex flex-col justify-between overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1.5">
                             <div class="product-image relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-[#f5ede5]/50 p-6" data-bgcolor="<%= product.bgcolor || '#f5ede5' %>">
-                                <img alt="<%= product.name %>" class="h-full w-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-105" loading="lazy" src="data:image/png;base64,<%= product.image.toString('base64') %>">
+                                <% if(product.image){ %><img alt="<%= product.name %>" class="h-full w-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-105" loading="lazy" src="data:image/png;base64,<%= product.image.toString('base64') %>"><% } else { %><span class="text-xs text-espresso-muted">Image unavailable</span><% } %>
                                 <% if(product.discount > 0){ %><span class="absolute left-3.5 top-3.5 rounded-full border border-white/60 bg-white/70 px-2 py-0.5 text-[10px] font-medium uppercase tracking-widest text-espresso-muted backdrop-blur-sm">Sale</span><% } %>
                             </div>
                             <div class="product-footer card-footer-sand flex items-end justify-between p-4 sm:p-5" data-panelcolor="<%= product.panelcolor || '' %>" data-textcolor="<%= product.textcolor || '#241b16' %>">

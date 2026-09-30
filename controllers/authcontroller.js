@@ -35,7 +35,10 @@ module.exports.loginUser = async function(req,res){
     //check ki user exists krta hai ya nahi
     let {email,password} = req.body;
     let user = await userModel.findOne({email:email});
-    if(!user) return res.send("email or password incorrect");
+    if(!user) {
+      req.flash("error", "Email or password incorrect");
+      return res.redirect("/");
+    }
 
     //comparing the password of the user
     bcrypt.compare(password,user.password,function(err,result){
@@ -45,7 +48,8 @@ module.exports.loginUser = async function(req,res){
             res.redirect("/shop");
         }
         else{
-            return res.send("Email or Password incorrect")
+          req.flash("error", "Email or password incorrect");
+            return res.redirect("/");
         }
     })
 
