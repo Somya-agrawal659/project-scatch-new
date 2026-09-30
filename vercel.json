@@ -1,4 +1,13 @@
 {
+  "functions": {
+    "api/index.js": {
+      "includeFiles": [
+        "views/**/*.ejs",
+        "public/**",
+        "config/**"
+      ]
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
