@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scatch - Orders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-[#fcfaf7] px-6 py-10 font-sans text-[#241b16] sm:px-10">
+    <main class="mx-auto max-w-4xl">
+        <nav class="mb-16 flex items-center justify-between text-sm"><a href="/shop" class="font-serif text-2xl">Scatch</a><div class="flex gap-5"><a href="/cart">Cart</a><a href="/account">My Account</a><a href="/users/logout" class="text-[#a75c43]">LogOut</a></div></nav>
+        <header class="mb-8"><p class="mb-3 text-xs uppercase tracking-[.22em] text-[#8c786e]">Order history</p><h1 class="font-serif text-4xl">Orders</h1></header>
+        <% if(orders.length === 0){ %><section class="rounded-2xl border border-[#eadfd4] bg-white/80 p-10 text-center"><h2 class="font-serif text-2xl">No orders placed yet.</h2><a class="mt-5 inline-block rounded-full bg-[#2d333b] px-6 py-3 text-sm text-white" href="/shop">Start Shopping</a></section><% } else { %>
+            <div class="space-y-5"><% orders.forEach(function(order){ %><article class="rounded-2xl border border-[#eadfd4] bg-white/80 p-6 shadow-sm"><div class="flex flex-wrap items-start justify-between gap-3"><div><p class="text-sm font-semibold"><%= order.orderId %></p><p class="mt-1 text-xs text-[#8c786e]"><%= new Date(order.placedAt).toLocaleDateString() %></p></div><span class="rounded-full bg-[#e5f0e4] px-3 py-1 text-xs font-medium text-[#2e7d32]"><%= order.status %></span></div><div class="mt-5 space-y-2 border-t border-[#eee5dc] pt-4 text-sm"><% order.items.forEach(function(item){ %><div class="flex justify-between gap-4"><span><%= item.name %></span><span>₹<%= item.total %></span></div><% }) %></div><div class="mt-5 flex justify-between border-t border-[#eee5dc] pt-4 font-semibold"><span>Total</span><span>₹<%= order.total %></span></div></article><% }) %></div>
+        <% } %>
+    </main>
+</body>
+</html>

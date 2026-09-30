@@ -39,4 +39,8 @@ app.use("/owners",ownersRouter);
 app.use("/products",productsRouter);
 app.use("/users",usersRouter);
 
-app.listen(3000);
+if (require.main === module) {
+  app.listen(process.env.PORT || 3000);
+}
+
+module.exports = app;

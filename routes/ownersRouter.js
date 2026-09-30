@@ -55,8 +55,8 @@ router.get("/admin/edit/:id", async function(req, res) {
 });
 
 router.post("/admin/edit/:id", upload.single("image"), async function(req, res) {
-  const { name, price, discount, bgcolor, panelcolor, textcolor } = req.body;
-  const updates = { name, price, discount, bgcolor, panelcolor, textcolor };
+  const { name, price, discount, available, bgcolor, panelcolor, textcolor } = req.body;
+  const updates = { name, price, discount, available: available === "true", bgcolor, panelcolor, textcolor };
 
   if (req.file) updates.image = req.file.buffer;
 

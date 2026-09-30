@@ -9,6 +9,10 @@ const productSchema = mongoose.Schema({
         type : Number,
         default : 0,
     },
+    available : {
+        type : Boolean,
+        default : true,
+    },
 
     bgcolor: String,
     panelcolor: String,

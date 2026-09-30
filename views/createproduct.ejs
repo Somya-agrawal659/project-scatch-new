@@ -133,12 +133,6 @@
 
                 </div>
 
-                <span
-                    class="mt-1 text-[9px] font-medium uppercase tracking-[.3em] text-[#9E948A]"
-                >
-                    Maison &amp; Atelier
-                </span>
-
             </a>
 
 
@@ -369,6 +363,17 @@
                                 class="w-full rounded-md border border-[#E4DCD2] bg-[#FAF8F5] px-4 py-2.5 text-sm focus:border-[#BFA07A] focus:bg-white focus:outline-none md:w-1/2"
                             >
 
+                            <label class="flex items-center gap-3 text-sm text-[#5A524A]">
+                                <input
+                                    name="available"
+                                    type="checkbox"
+                                    value="true"
+                                    <%= !currentProduct || currentProduct.available !== false ? 'checked' : '' %>
+                                    class="rounded border-[#E4DCD2] text-[#8C6A45] focus:ring-[#BFA07A]"
+                                >
+                                Available for purchase
+                            </label>
+
                         </div>
 
 
@@ -448,7 +453,7 @@
     <footer
         class="relative z-10 mx-auto max-w-[1440px] px-8 py-8 text-center text-[11px] uppercase tracking-widest text-[#A89E93]"
     >
-        Scatch Atelier Management Suite - Atelier Curations
+        Scatch Product Management
     </footer>
 
 

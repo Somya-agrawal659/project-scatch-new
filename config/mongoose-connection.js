@@ -3,10 +3,14 @@ const dbgr = require("debug")("development:mongoose");
 
 require("dotenv").config();
 
-const mongoURI = process.env.MONGODB_URI;
+const mongoURI = process.env.MONGODB_URI || process.env.MONGO_URI;
+
+if (!mongoURI) {
+  throw new Error("MONGODB_URI or MONGO_URI must be configured");
+}
 
 mongoose
-  .connect(`${MONGODB_URI}/scatch`)
+  .connect(mongoURI)
   .then(function () {
     dbgr("connected");
   })
